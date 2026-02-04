@@ -3,193 +3,139 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Интерактивная кнопка — День святого Валентина</title>
+<title>Be My Valentine 💘</title>
+
 <style>
-  body {
-    margin: 0;
-    font-family: sans-serif;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    background: linear-gradient(135deg, #ff9a9e 0%, #fad0c4 100%);
-    overflow: hidden;
-    position: relative;
-  }
+body {
+  margin: 0;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: "Segoe UI", Arial, sans-serif;
+  background: linear-gradient(135deg, #020617, #312e81, #7c3aed);
+  background-size: 300% 300%;
+  animation: bg 8s ease infinite;
+  overflow: hidden;
+}
 
-  #card {
-    position: relative;
-    z-index: 2;
-    width: 320px;
-    height: 220px;
-    background: rgba(255, 255, 255, 0.9);
-    border-radius: 20px;
-    box-shadow: 0 8px 20px rgba(0,0,0,0.2);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    text-align: center;
-    padding: 20px;
-    transition: transform 0.5s;
-  }
+@keyframes bg {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
 
-  button {
-    padding: 12px 24px;
-    margin: 10px;
-    border: none;
-    border-radius: 12px;
-    font-size: 16px;
-    cursor: pointer;
-    transition: transform 0.2s;
-  }
+.card {
+  background: rgba(255,255,255,0.95);
+  padding: 32px 28px 80px;
+  border-radius: 24px;
+  width: 320px;
+  text-align: center;
+  position: relative;
+  box-shadow: 0 30px 60px rgba(0,0,0,.35);
+  animation: pop .6s ease;
+}
 
-  #yes {
-    background: #ff4081;
-    color: white;
-  }
+@keyframes pop {
+  from { transform: scale(.9); opacity: 0; }
+  to   { transform: scale(1); opacity: 1; }
+}
 
-  #no {
-    background: #607d8b;
-    color: white;
-    position: absolute;
-  }
+h2 {
+  margin-top: 0;
+}
 
-  #bg-frame {
-    position: fixed;
-    top: 0;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 450px;
-    height: 604px;
-    border: none;
-    z-index: 1;
-    display: none;
-  }
+button {
+  padding: 12px 22px;
+  border-radius: 30px;
+  border: none;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+}
 
-  /* Летающие сердечки */
-  .heart {
-    position: fixed;
-    width: 15px;
-    height: 15px;
-    background: red;
-    transform: rotate(45deg);
-    left: 50%;
-    bottom: -20px;
-    animation: rise 4s linear forwards;
-    border-radius: 3px;
-  }
+#yes {
+  background: linear-gradient(135deg, #22c55e, #16a34a);
+  color: white;
+  margin-right: 10px;
+  transition: transform .15s, box-shadow .15s;
+}
 
-  .heart::before,
-  .heart::after {
-    content: '';
-    position: absolute;
-    width: 15px;
-    height: 15px;
-    background: red;
-    border-radius: 50%;
-  }
+#yes:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 20px rgba(34,197,94,.7);
+}
 
-  .heart::before {
-    top: -7.5px;
-    left: 0;
-  }
+#no {
+  background: #ef4444;
+  color: white;
+  position: absolute;
+  padding: 12px 22px;
+  border-radius: 30px;
+  width: auto;
+  display: inline-block;
+  white-space: nowrap;
+  right: 30px;
+  bottom: 30px;
+}
 
-  .heart::after {
-    left: 7.5px;
-    top: 0;
-  }
-
-  @keyframes rise {
-    0% { transform: translateX(0) translateY(0) rotate(0deg); opacity:1; }
-    100% { transform: translateX(calc(-50px + 100px * var(--rand))) translateY(-110vh) rotate(360deg); opacity:0; }
-  }
-
-  @keyframes confetti {
-    to { transform: translateY(110vh) rotate(720deg); opacity: 0; }
-  }
 </style>
 </head>
+
 <body>
 
-<iframe id="bg-frame" src="https://assets.pinterest.com/ext/embed.html?id=888686938976309443"></iframe>
-
-<div id="card">
-  <h2>Будешь моей Валентинкой?</h2>
-  <div>
-    <button id="yes">YES</button>
-    <button id="no">NO</button>
-  </div>
+<div class="card" id="card">
+  <h2>Ты будешь моей валентинкой? 💘</h2>
+  <button id="yes">Yes</button>
+  <button id="no">No</button>
 </div>
 
 <script>
 const noBtn = document.getElementById("no");
 const yesBtn = document.getElementById("yes");
 const card = document.getElementById("card");
-const bgFrame = document.getElementById("bg-frame");
 
-let yesScale = 1;
-
-// убегание NO + рост YES
 function moveNo() {
   const maxX = card.clientWidth - noBtn.offsetWidth - 10;
   const maxY = card.clientHeight - noBtn.offsetHeight - 10;
-
   noBtn.style.left = Math.random() * maxX + "px";
   noBtn.style.top  = Math.random() * maxY + "px";
-
-  yesScale += 0.15;
-  yesBtn.style.transform = `scale(${yesScale})`;
 }
 
 noBtn.addEventListener("mouseenter", moveNo);
 noBtn.addEventListener("touchstart", moveNo);
 
-// YES — ВАУ ЭКРАН
 yesBtn.onclick = () => {
-  bgFrame.style.display = "block"; // показываем Pinterest
   card.innerHTML = `
-    <h1 style="font-size:32px">💖 УРААА 💖</h1>
-    <p style="font-size:18px">
-     <p>Я знал(а), что ты согласишься 😘</p>
-      
-    
+    <h2>💖 УРААА 💖</h2>
+    <p>Я знал(а), что ты согласишься 😘</p>
   `;
-  launchConfetti();
-  launchHearts();
 };
 
-// конфетти
-function launchConfetti() {
-  for (let i = 0; i < 80; i++) {
-    const c = document.createElement("div");
-    c.style.position = "fixed";
-    c.style.left = Math.random() * 100 + "vw";
-    c.style.top = "-10px";
-    c.style.width = "8px";
-    c.style.height = "8px";
-    c.style.background = `hsl(${Math.random()*360},100%,60%)`;
-    c.style.animation = "confetti 3s linear";
-    document.body.appendChild(c);
-    setTimeout(() => c.remove(), 3000);
-  }
-}
+// падающие сердечки
+setInterval(() => {
+  const h = document.createElement("div");
+  h.textContent = "❤️";
+  h.style.position = "fixed";
+  h.style.left = Math.random() * 100 + "vw";
+  h.style.top = "-20px";
+  h.style.fontSize = "20px";
+  h.style.animation = "fall 4s linear";
+  document.body.appendChild(h);
+  setTimeout(() => h.remove(), 4000);
+}, 400);
 
-// летающие сердечки
-function launchHearts() {
-  for (let i = 0; i < 30; i++) {
-    const h = document.createElement("div");
-    h.classList.add("heart");
-    h.style.left = Math.random() * 100 + "vw";
-    h.style.setProperty('--rand', Math.random());
-    document.body.appendChild(h);
-    setTimeout(() => h.remove(), 4000);
-  }
-}
+const style = document.createElement("style");
+style.innerHTML = `
+@keyframes fall {
+  to { transform: translateY(110vh); opacity: 0; }
+}`;
+document.head.appendChild(style);
 </script>
 
 </body>
 </html>
+
 
 
 
