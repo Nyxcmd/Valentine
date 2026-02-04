@@ -45,11 +45,11 @@ button {
   color: white;
 }
 
-/* NO — отдельно от карточки */
+/* NO — бегает по всему экрану */
 #no {
   background: #ef4444;
   color: white;
-  position: fixed; /* ВАЖНО */
+  position: fixed;
   left: 50%;
   top: 60%;
   z-index: 5;
@@ -65,7 +65,6 @@ button {
   <button id="yes">Yes</button>
 </div>
 
-<!-- кнопка NO вне карточки -->
 <button id="no">No</button>
 
 <script>
@@ -73,7 +72,7 @@ const noBtn = document.getElementById("no");
 const yesBtn = document.getElementById("yes");
 const card  = document.getElementById("card");
 
-/* NO бегает по ВСЕМУ экрану */
+/* NO убегает по всему экрану */
 function moveNo() {
   const x = Math.random() * (window.innerWidth  - noBtn.offsetWidth);
   const y = Math.random() * (window.innerHeight - noBtn.offsetHeight);
@@ -84,29 +83,52 @@ function moveNo() {
 noBtn.addEventListener("mouseenter", moveNo);
 noBtn.addEventListener("touchstart", moveNo);
 
-/* YES — реакция + котик + градиент */
+/* YES — градиент + сердечки */
 yesBtn.onclick = () => {
-  document.body.style.background = `
-    linear-gradient(
-      rgba(236,72,153,0.6),
-      rgba(139,92,246,0.6)
-    ),
-    url('https://i.imgur.com/6XKQ7ZQ.png')
-    center / cover no-repeat
-  `;
+  document.body.style.background =
+    "linear-gradient(135deg, #ec4899, #8b5cf6)";
 
   card.innerHTML = `
     <h1>💖 УРААА 💖</h1>
-    <p>Я знал, что ты скажешь «да» 😼</p>
+    <p>Я знал, что ты скажешь «да» 😌</p>
     <p>Ты сделала мой день ❤️</p>
   `;
 
   noBtn.remove();
+  startHearts();
 };
+
+/* сердечки по сайту */
+function startHearts() {
+  setInterval(() => {
+    const h = document.createElement("div");
+    h.textContent = "❤️";
+    h.style.position = "fixed";
+    h.style.left = Math.random() * 100 + "vw";
+    h.style.top = "-20px";
+    h.style.fontSize = "20px";
+    h.style.animation = "fall 4s linear";
+    document.body.appendChild(h);
+    setTimeout(() => h.remove(), 4000);
+  }, 300);
+}
+
+/* анимация падения */
+const style = document.createElement("style");
+style.innerHTML = `
+@keyframes fall {
+  to {
+    transform: translateY(110vh);
+    opacity: 0;
+  }
+}`;
+document.head.appendChild(style);
 </script>
 
 </body>
 </html>
+
+
 
 
 
