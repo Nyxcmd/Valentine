@@ -67,14 +67,14 @@ const yesBtn = document.getElementById("yes");
 const card   = document.getElementById("card");
 
 let noCount = 0;
-const MAX_NO = 5;
+const MAX_NO = 10;
 
-// NO бегает по экрану + считаем попытки
+// NO бегает + считаем попытки
 function moveNo() {
   noCount++;
 
   if (noCount >= MAX_NO) {
-    showResult("no5.jpg");
+    showNoResult();
     return;
   }
 
@@ -87,18 +87,32 @@ function moveNo() {
 noBtn.addEventListener("mouseenter", moveNo);
 noBtn.addEventListener("touchstart", moveNo);
 
-// YES вручную
-yesBtn.onclick = () => showResult("yes.jpg");
+// YES сразу
+yesBtn.onclick = showYesResult;
 
-// ФИНАЛ
-function showResult(photo) {
+// YES результат
+function showYesResult() {
   noBtn.remove();
 
   card.innerHTML = `
     <h1>💖 УРААА 💖</h1>
     <p>Я знал, что ты скажешь «да» 😌</p>
     <p>Ты сделала мой день ❤️</p>
-    <img src="${photo}"
+    <img src="yes.jpg"
+         style="width:100%; border-radius:16px; margin-top:12px;">
+  `;
+
+  startHearts();
+}
+
+// NO ×10 результат
+function showNoResult() {
+  noBtn.remove();
+
+  card.innerHTML = `
+    <h1>😑</h1>
+    <p><b>эээээ какое нет, ахуела?</b></p>
+    <img src="no10.jpg"
          style="width:100%; border-radius:16px; margin-top:12px;">
   `;
 
@@ -134,7 +148,6 @@ document.head.appendChild(style);
 
 </body>
 </html>
-
 
 
 
