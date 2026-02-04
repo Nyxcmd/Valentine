@@ -48,11 +48,8 @@ button {
   background: linear-gradient(135deg, #22c55e, #16a34a);
   color: white;
   margin-right: 10px;
-  transition: transform .2s, box-shadow .2s;
-}
-
-#yes:hover {
-  box-shadow: 0 0 20px rgba(34,197,94,.7);
+  transition: transform .2s ease, box-shadow .2s;
+  transform-origin: center;
 }
 
 #no {
@@ -64,6 +61,7 @@ button {
   width: auto;
   display: inline-block;
   white-space: nowrap;
+  transform: none !important;
 }
 </style>
 </head>
@@ -146,6 +144,7 @@ document.head.appendChild(style);
 
 </body>
 </html>
+
 
 
 
