@@ -18,6 +18,7 @@ body {
   overflow: hidden;
 }
 
+/* карточка */
 .card {
   background: white;
   padding: 30px;
@@ -29,6 +30,7 @@ body {
   z-index: 2;
 }
 
+/* кнопки */
 button {
   padding: 12px 22px;
   border-radius: 30px;
@@ -41,16 +43,17 @@ button {
 #yes {
   background: #22c55e;
   color: white;
-  margin-right: 10px;
 }
 
+/* NO — отдельно от карточки */
 #no {
   background: #ef4444;
   color: white;
-  position: fixed;
+  position: fixed; /* ВАЖНО */
   left: 50%;
-  top: 50%;
-  z-index: 3;
+  top: 60%;
+  z-index: 5;
+  transform: none !important;
 }
 </style>
 </head>
@@ -62,6 +65,7 @@ button {
   <button id="yes">Yes</button>
 </div>
 
+<!-- кнопка NO вне карточки -->
 <button id="no">No</button>
 
 <script>
@@ -69,7 +73,7 @@ const noBtn = document.getElementById("no");
 const yesBtn = document.getElementById("yes");
 const card  = document.getElementById("card");
 
-// NO убегает по экрану
+/* NO бегает по ВСЕМУ экрану */
 function moveNo() {
   const x = Math.random() * (window.innerWidth  - noBtn.offsetWidth);
   const y = Math.random() * (window.innerHeight - noBtn.offsetHeight);
@@ -80,7 +84,7 @@ function moveNo() {
 noBtn.addEventListener("mouseenter", moveNo);
 noBtn.addEventListener("touchstart", moveNo);
 
-// YES — котик + градиент + реакция
+/* YES — реакция + котик + градиент */
 yesBtn.onclick = () => {
   document.body.style.background = `
     linear-gradient(
@@ -93,8 +97,8 @@ yesBtn.onclick = () => {
 
   card.innerHTML = `
     <h1>💖 УРААА 💖</h1>
-    <p>Я знал, что ты скажешь «да» 😻</p>
-    <p>Ты сделала этот день особенным ✨</p>
+    <p>Я знал, что ты скажешь «да» 😼</p>
+    <p>Ты сделала мой день ❤️</p>
   `;
 
   noBtn.remove();
@@ -103,6 +107,7 @@ yesBtn.onclick = () => {
 
 </body>
 </html>
+
 
 
 
