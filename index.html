@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Be My Valentine</title>
+<style>
+  * { box-sizing: border-box; font-family: Arial, sans-serif; }
+  body {
+    height: 100vh; margin: 0; display: grid; place-items: center;
+    background: #0f172a; color: #e5e7eb;
+  }
+  h1 span { color: #22c55e; }
+  .card {
+    position: relative; background: #fff; color: #111;
+    padding: 24px 28px 64px; border-radius: 16px; width: 320px;
+    text-align: center;
+  }
+  .buttons { margin-top: 20px; }
+  button {
+    padding: 10px 18px; border-radius: 999px; border: 0;
+    cursor: pointer; font-weight: 600;
+  }
+  #yes { background: #22c55e; color: #fff; margin-right: 12px; }
+  #no {
+    background: #ef4444; color: #fff;
+    position: absolute; left: 180px; top: 210px;
+    transition: left .15s, top .15s;
+  }
+  .msg { margin-top: 12px; font-weight: 600; }
+</style>
+</head>
+<body>
+  <div>
+    <h1>Be My <span>Valentine</span></h1>
+    <div class="card" id="card">
+      <p>Will you be my Valentine?</p>
+      <div class="buttons">
+        <button id="yes">Yes</button>
+        <button id="no">No</button>
+      </div>
+      <div class="msg" id="msg"></div>
+    </div>
+  </div>
+
+<script>
+  const noBtn = document.getElementById('no');
+  const yesBtn = document.getElementById('yes');
+  const card  = document.getElementById('card');
+  const msg   = document.getElementById('msg');
+
+  function moveNo() {
+    const pad = 16;
+    const maxX = card.clientWidth  - noBtn.offsetWidth  - pad;
+    const maxY = card.clientHeight - noBtn.offsetHeight - pad;
+    const x = Math.random() * maxX;
+    const y = Math.random() * maxY;
+    noBtn.style.left = x + 'px';
+    noBtn.style.top  = y + 'px';
+  }
+
+  noBtn.addEventListener('mouseenter', moveNo);
+  noBtn.addEventListener('mouseover', moveNo);
+
+  yesBtn.addEventListener('click', () => {
+    msg.textContent = 'Yay! ❤️';
+    noBtn.style.display = 'none';
+  });
+</script>
+</body>
+</html>
