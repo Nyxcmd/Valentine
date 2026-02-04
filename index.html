@@ -6,7 +6,6 @@
 <title>💘 Valentine</title>
 
 <style>
-/* ===== ОСНОВА ===== */
 body {
   margin: 0;
   height: 100vh;
@@ -18,7 +17,6 @@ body {
   overflow: hidden;
 }
 
-/* ===== КАРТОЧКА ===== */
 .card {
   background: white;
   padding: 30px;
@@ -29,7 +27,6 @@ body {
   z-index: 2;
 }
 
-/* ===== КНОПКИ ===== */
 button {
   padding: 12px 22px;
   border-radius: 30px;
@@ -44,7 +41,6 @@ button {
   color: white;
 }
 
-/* NO бегает по всему экрану */
 #no {
   background: #ef4444;
   color: white;
@@ -66,12 +62,22 @@ button {
 <button id="no">No</button>
 
 <script>
-const noBtn = document.getElementById("no");
+const noBtn  = document.getElementById("no");
 const yesBtn = document.getElementById("yes");
-const card = document.getElementById("card");
+const card   = document.getElementById("card");
 
-/* NO бегает по всему сайту */
+let noCount = 0;
+const MAX_NO = 5;
+
+// NO бегает по экрану + считаем попытки
 function moveNo() {
+  noCount++;
+
+  if (noCount >= MAX_NO) {
+    showResult("no5.jpg");
+    return;
+  }
+
   const x = Math.random() * (window.innerWidth  - noBtn.offsetWidth);
   const y = Math.random() * (window.innerHeight - noBtn.offsetHeight);
   noBtn.style.left = x + "px";
@@ -81,18 +87,25 @@ function moveNo() {
 noBtn.addEventListener("mouseenter", moveNo);
 noBtn.addEventListener("touchstart", moveNo);
 
-/* YES — реакция + сердечки */
-yesBtn.onclick = () => {
+// YES вручную
+yesBtn.onclick = () => showResult("yes.jpg");
+
+// ФИНАЛ
+function showResult(photo) {
+  noBtn.remove();
+
   card.innerHTML = `
     <h1>💖 УРААА 💖</h1>
-    <p>Я знал, что ты скажешь «да» 😼</p>
+    <p>Я знал, что ты скажешь «да» 😌</p>
     <p>Ты сделала мой день ❤️</p>
+    <img src="${photo}"
+         style="width:100%; border-radius:16px; margin-top:12px;">
   `;
-  noBtn.remove();
-  startHearts();
-};
 
-/* сердечки */
+  startHearts();
+}
+
+// сердечки
 function startHearts() {
   setInterval(() => {
     const h = document.createElement("div");
@@ -107,7 +120,7 @@ function startHearts() {
   }, 300);
 }
 
-/* анимация */
+// анимация
 const style = document.createElement("style");
 style.innerHTML = `
 @keyframes fall {
@@ -121,6 +134,7 @@ document.head.appendChild(style);
 
 </body>
 </html>
+
 
 
 
