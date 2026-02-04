@@ -6,6 +6,7 @@
 <title>💘 Valentine</title>
 
 <style>
+/* ===== ОСНОВА ===== */
 body {
   margin: 0;
   height: 100vh;
@@ -14,11 +15,10 @@ body {
   align-items: center;
   justify-content: center;
   background: linear-gradient(135deg, #ec4899, #8b5cf6);
-  transition: background 1s ease;
   overflow: hidden;
 }
 
-/* карточка */
+/* ===== КАРТОЧКА ===== */
 .card {
   background: white;
   padding: 30px;
@@ -26,11 +26,10 @@ body {
   text-align: center;
   width: 320px;
   box-shadow: 0 20px 40px rgba(0,0,0,.3);
-  position: relative;
   z-index: 2;
 }
 
-/* кнопки */
+/* ===== КНОПКИ ===== */
 button {
   padding: 12px 22px;
   border-radius: 30px;
@@ -69,9 +68,9 @@ button {
 <script>
 const noBtn = document.getElementById("no");
 const yesBtn = document.getElementById("yes");
-const card  = document.getElementById("card");
+const card = document.getElementById("card");
 
-/* NO убегает по всему сайту */
+/* NO бегает по всему сайту */
 function moveNo() {
   const x = Math.random() * (window.innerWidth  - noBtn.offsetWidth);
   const y = Math.random() * (window.innerHeight - noBtn.offsetHeight);
@@ -82,17 +81,13 @@ function moveNo() {
 noBtn.addEventListener("mouseenter", moveNo);
 noBtn.addEventListener("touchstart", moveNo);
 
-/* YES — градиент + сердечки + ТВОЙ ТЕКСТ */
+/* YES — реакция + сердечки */
 yesBtn.onclick = () => {
-  document.body.style.background =
-    "linear-gradient(135deg, #ec4899, #8b5cf6)";
-
   card.innerHTML = `
     <h1>💖 УРААА 💖</h1>
     <p>Я знал, что ты скажешь «да» 😼</p>
     <p>Ты сделала мой день ❤️</p>
   `;
-
   noBtn.remove();
   startHearts();
 };
@@ -112,7 +107,7 @@ function startHearts() {
   }, 300);
 }
 
-/* анимация падения */
+/* анимация */
 const style = document.createElement("style");
 style.innerHTML = `
 @keyframes fall {
@@ -126,7 +121,6 @@ document.head.appendChild(style);
 
 </body>
 </html>
-
 
 
 
