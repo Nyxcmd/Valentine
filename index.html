@@ -15,7 +15,6 @@ function moveNo() {
 
   yesScale += 0.15;
   yesBtn.style.transform = `scale(${yesScale})`;
-
 }
 
 noBtn.addEventListener("mouseenter", moveNo);
@@ -25,15 +24,16 @@ noBtn.addEventListener("touchstart", moveNo);
 yesBtn.onclick = () => {
   document.body.style.background = `
     linear-gradient(rgba(0,0,0,.4), rgba(0,0,0,.4)),
+    url('https://unsplash.com/photos/purple-and-orange-tulips-on-white-surface-5lvgkp_xix8')
     center/cover no-repeat
   `;
 
   card.innerHTML = `
     <h1 style="font-size:32px">💖 УРААА 💖</h1>
     <p style="font-size:18px">
-      <h2>💖 УРААА 💖</h2>
-    <p>Я знал(а), что ты согласишься 😘</p>
- 
+      Это лучший ответ 😍<br>
+      Ты сделала мой день
+    </p>
   `;
 
   launchConfetti();
@@ -65,8 +65,4 @@ style.innerHTML = `
 }`;
 document.head.appendChild(style);
 </script>
-
-
-
-
 
