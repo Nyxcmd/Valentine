@@ -9,30 +9,24 @@
 body {
   margin: 0;
   height: 100vh;
+  font-family: Arial, sans-serif;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-family: "Segoe UI", Arial, sans-serif;
-  background: linear-gradient(135deg, #020617, #312e81, #7c3aed);
-  background-size: 300% 300%;
-  animation: bg 8s ease infinite;
+  background: linear-gradient(135deg, #312e81, #7c3aed);
+  transition: background 1s ease;
   overflow: hidden;
 }
 
-@keyframes bg {
-  0% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
-}
-
 .card {
-  background: rgba(255,255,255,0.95);
-  padding: 28px 24px 80px;
-  border-radius: 24px;
-  width: 340px;
+  background: white;
+  padding: 30px;
+  border-radius: 20px;
   text-align: center;
+  width: 300px;
+  box-shadow: 0 20px 40px rgba(0,0,0,.3);
   position: relative;
-  box-shadow: 0 30px 60px rgba(0,0,0,.35);
+  z-index: 2;
 }
 
 button {
@@ -40,28 +34,23 @@ button {
   border-radius: 30px;
   border: none;
   font-size: 16px;
-  font-weight: 600;
+  font-weight: bold;
   cursor: pointer;
 }
 
 #yes {
-  background: linear-gradient(135deg, #22c55e, #16a34a);
+  background: #22c55e;
   color: white;
   margin-right: 10px;
-  transition: transform .2s ease, box-shadow .2s;
-  transform-origin: center;
 }
 
 #no {
   background: #ef4444;
   color: white;
-  position: absolute;
-  right: 30px;
-  bottom: 30px;
-  width: auto;
-  display: inline-block;
-  white-space: nowrap;
-  transform: none !important;
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  z-index: 3;
 }
 </style>
 </head>
@@ -71,80 +60,49 @@ button {
 <div class="card" id="card">
   <h2>Ты будешь моей валентинкой? 💘</h2>
   <button id="yes">Yes</button>
-  <button id="no">No</button>
 </div>
+
+<button id="no">No</button>
 
 <script>
 const noBtn = document.getElementById("no");
 const yesBtn = document.getElementById("yes");
-const card = document.getElementById("card");
+const card  = document.getElementById("card");
 
-let yesScale = 1;
-
-// NO убегает + YES растёт
+// NO убегает по экрану
 function moveNo() {
-  const maxX = card.clientWidth - noBtn.offsetWidth - 10;
-  const maxY = card.clientHeight - noBtn.offsetHeight - 10;
-
-  noBtn.style.left = Math.random() * maxX + "px";
-  noBtn.style.top  = Math.random() * maxY + "px";
-
-  yesScale += 0.2;
-  yesBtn.style.transform = `scale(${yesScale})`;
+  const x = Math.random() * (window.innerWidth  - noBtn.offsetWidth);
+  const y = Math.random() * (window.innerHeight - noBtn.offsetHeight);
+  noBtn.style.left = x + "px";
+  noBtn.style.top  = y + "px";
 }
 
 noBtn.addEventListener("mouseenter", moveNo);
 noBtn.addEventListener("touchstart", moveNo);
 
-// YES — ВАУ + Pinterest
+// YES — котик + градиент + реакция
 yesBtn.onclick = () => {
-  card.innerHTML = `
-    <h1 style="margin-top:0">💖 УРААА 💖</h1>
-    <p style="font-size:17px">Это был правильный выбор 😌</p>
-
-    <iframe
-      src="https://assets.pinterest.com/ext/embed.html?id=888686938976309443"
-      width="100%"
-      height="420"
-      frameborder="0"
-      scrolling="no"
-      style="border-radius:16px; margin-top:10px;">
-    </iframe>
+  document.body.style.background = `
+    linear-gradient(
+      rgba(236,72,153,0.6),
+      rgba(139,92,246,0.6)
+    ),
+    url('https://i.imgur.com/6XKQ7ZQ.png')
+    center / cover no-repeat
   `;
 
-  launchConfetti();
+  card.innerHTML = `
+    <h1>💖 УРААА 💖</h1>
+    <p>Я знал(а), что ты скажешь «да» 😻</p>
+    <p>Ты сделала этот день особенным ✨</p>
+  `;
+
+  noBtn.remove();
 };
-
-// конфетти
-function launchConfetti() {
-  for (let i = 0; i < 70; i++) {
-    const c = document.createElement("div");
-    c.style.position = "fixed";
-    c.style.left = Math.random() * 100 + "vw";
-    c.style.top = "-10px";
-    c.style.width = "8px";
-    c.style.height = "8px";
-    c.style.background = `hsl(${Math.random()*360},100%,60%)`;
-    c.style.animation = "confetti 3s linear";
-    document.body.appendChild(c);
-    setTimeout(() => c.remove(), 3000);
-  }
-}
-
-const style = document.createElement("style");
-style.innerHTML = `
-@keyframes confetti {
-  to {
-    transform: translateY(110vh) rotate(720deg);
-    opacity: 0;
-  }
-}`;
-document.head.appendChild(style);
 </script>
 
 </body>
 </html>
-
 
 
 
