@@ -13,7 +13,7 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  background: linear-gradient(135deg, #312e81, #7c3aed);
+  background: linear-gradient(135deg, #ec4899, #8b5cf6);
   transition: background 1s ease;
   overflow: hidden;
 }
@@ -24,7 +24,7 @@ body {
   padding: 30px;
   border-radius: 20px;
   text-align: center;
-  width: 300px;
+  width: 320px;
   box-shadow: 0 20px 40px rgba(0,0,0,.3);
   position: relative;
   z-index: 2;
@@ -45,7 +45,7 @@ button {
   color: white;
 }
 
-/* NO — бегает по всему экрану */
+/* NO бегает по всему экрану */
 #no {
   background: #ef4444;
   color: white;
@@ -53,7 +53,6 @@ button {
   left: 50%;
   top: 60%;
   z-index: 5;
-  transform: none !important;
 }
 </style>
 </head>
@@ -72,7 +71,7 @@ const noBtn = document.getElementById("no");
 const yesBtn = document.getElementById("yes");
 const card  = document.getElementById("card");
 
-/* NO убегает по всему экрану */
+/* NO убегает по всему сайту */
 function moveNo() {
   const x = Math.random() * (window.innerWidth  - noBtn.offsetWidth);
   const y = Math.random() * (window.innerHeight - noBtn.offsetHeight);
@@ -83,14 +82,14 @@ function moveNo() {
 noBtn.addEventListener("mouseenter", moveNo);
 noBtn.addEventListener("touchstart", moveNo);
 
-/* YES — градиент + сердечки */
+/* YES — градиент + сердечки + ТВОЙ ТЕКСТ */
 yesBtn.onclick = () => {
   document.body.style.background =
     "linear-gradient(135deg, #ec4899, #8b5cf6)";
 
   card.innerHTML = `
     <h1>💖 УРААА 💖</h1>
-    <p>Я знал, что ты скажешь «да» 😌</p>
+    <p>Я знал, что ты скажешь «да» 😼</p>
     <p>Ты сделала мой день ❤️</p>
   `;
 
@@ -98,7 +97,7 @@ yesBtn.onclick = () => {
   startHearts();
 };
 
-/* сердечки по сайту */
+/* сердечки */
 function startHearts() {
   setInterval(() => {
     const h = document.createElement("div");
