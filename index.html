@@ -1,7 +1,96 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Интерактивная кнопка</title>
+<style>
+  body {
+    margin: 0;
+    font-family: sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background: #f0f0f0;
+    overflow: hidden;
+    position: relative;
+  }
+
+  #card {
+    position: relative;
+    z-index: 2;
+    width: 300px;
+    height: 200px;
+    background: white;
+    border-radius: 16px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    text-align: center;
+    padding: 20px;
+  }
+
+  button {
+    padding: 10px 20px;
+    margin: 10px;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: transform 0.2s;
+  }
+
+  #yes {
+    background: #ff4081;
+    color: white;
+  }
+
+  #no {
+    background: #607d8b;
+    color: white;
+    position: absolute;
+  }
+
+  #bg-frame {
+    position: fixed;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 450px;
+    height: 604px;
+    border: none;
+    z-index: 1;
+    display: none; /* скрыт пока не нажата кнопка */
+  }
+
+  @keyframes confetti {
+    to {
+      transform: translateY(110vh) rotate(720deg);
+      opacity: 0;
+    }
+  }
+</style>
+</head>
+<body>
+
+<iframe id="bg-frame" src="https://assets.pinterest.com/ext/embed.html?id=888686938976309443"></iframe>
+
+<div id="card">
+  <h2>Сделаешь мне приятно?</h2>
+  <div>
+    <button id="yes">YES</button>
+    <button id="no">NO</button>
+  </div>
+</div>
+
 <script>
 const noBtn = document.getElementById("no");
 const yesBtn = document.getElementById("yes");
 const card = document.getElementById("card");
+const bgFrame = document.getElementById("bg-frame");
 
 let yesScale = 1;
 
@@ -22,17 +111,11 @@ noBtn.addEventListener("touchstart", moveNo);
 
 // YES — ВАУ ЭКРАН
 yesBtn.onclick = () => {
-  document.body.style.background = `
-    linear-gradient(rgba(0,0,0,.4), rgba(0,0,0,.4)),
-    url('https://unsplash.com/photos/purple-and-orange-tulips-on-white-surface-5lvgkp_xix8')
-    center/cover no-repeat
-  `;
-
+  bgFrame.style.display = "block"; // показываем Pinterest
   card.innerHTML = `
     <h1 style="font-size:32px">💖 УРААА 💖</h1>
     <p style="font-size:18px">
       Это лучший ответ 😍<br>
-      Ты сделала мой день
     </p>
   `;
 
@@ -54,15 +137,10 @@ function launchConfetti() {
     setTimeout(() => c.remove(), 3000);
   }
 }
-
-const style = document.createElement("style");
-style.innerHTML = `
-@keyframes confetti {
-  to {
-    transform: translateY(110vh) rotate(720deg);
-    opacity: 0;
-  }
-}`;
-document.head.appendChild(style);
 </script>
+
+</body>
+</html>
+
+
 
